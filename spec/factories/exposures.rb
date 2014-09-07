@@ -6,7 +6,7 @@ FactoryGirl.define do
     published "MyString"
     cvss_severity 1
     title "MyString"
-    cvss_v2_base_scroe 1
+    cvss_v2_base_score 1
     impact_subscore 1
     exploitability_subscore 1
     access_vector "MyString"

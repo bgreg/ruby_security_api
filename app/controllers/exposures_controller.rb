@@ -53,6 +53,6 @@ class ExposuresController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def exposure_params
-      params.require(:exposure).permit(:summary, :published, :cvss_severity, :title, :cvss_v2_base_scroe, :impact_subscore, :exploitability_subscore, :access_vector, :access_complexity, :authentication, :impact_type, :web_link, :external_source_organization, :external_source_name, :external_source_link)
+      params.require(:exposure).permit(:summary, :published, :cvss_severity, :title, :cvss_v2_base_score, :impact_subscore, :exploitability_subscore, :access_vector, :access_complexity, :authentication, :impact_type, :web_link, :external_source_organization, :external_source_name, :external_source_link)
     end
 end

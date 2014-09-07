@@ -11,30 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140907222813) do
+ActiveRecord::Schema.define(version: 20140907225128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "cves", force: true do |t|
-    t.string   "summary"
-    t.string   "published"
-    t.integer  "cvss_severity"
-    t.string   "title"
-    t.integer  "cvss_v2_base_scroe"
-    t.integer  "impact_subscore"
-    t.integer  "exploitability_subscore"
-    t.string   "access_vector"
-    t.string   "access_complexity"
-    t.string   "authentication"
-    t.string   "impact_type"
-    t.string   "web_link"
-    t.string   "external_source_org"
-    t.string   "external_source_name"
-    t.string   "external_source_link"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -57,7 +37,7 @@ ActiveRecord::Schema.define(version: 20140907222813) do
     t.string   "published"
     t.integer  "cvss_severity"
     t.string   "title"
-    t.integer  "cvss_v2_base_scroe"
+    t.integer  "cvss_v2_base_score"
     t.integer  "impact_subscore"
     t.integer  "exploitability_subscore"
     t.string   "access_vector"

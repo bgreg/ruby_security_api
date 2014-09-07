@@ -5,7 +5,7 @@ class CreateExposures < ActiveRecord::Migration
       t.string :published
       t.integer :cvss_severity
       t.string :title
-      t.integer :cvss_v2_base_scroe
+      t.integer :cvss_v2_base_score
       t.integer :impact_subscore
       t.integer :exploitability_subscore
       t.string :access_vector
