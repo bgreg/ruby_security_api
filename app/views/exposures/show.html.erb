@@ -2,78 +2,78 @@
 
 <p>
   <strong>Summary:</strong>
-  <%= @cfe.summary %>
+  <%= @exposure.summary %>
 </p>
 
 <p>
   <strong>Published:</strong>
-  <%= @cfe.published %>
+  <%= @exposure.published %>
 </p>
 
 <p>
   <strong>Cvss severity:</strong>
-  <%= @cfe.cvss_severity %>
+  <%= @exposure.cvss_severity %>
 </p>
 
 <p>
   <strong>Title:</strong>
-  <%= @cfe.title %>
+  <%= @exposure.title %>
 </p>
 
 <p>
   <strong>Cvss v2 base scroe:</strong>
-  <%= @cfe.cvss_v2_base_scroe %>
+  <%= @exposure.cvss_v2_base_scroe %>
 </p>
 
 <p>
   <strong>Impact subscore:</strong>
-  <%= @cfe.impact_subscore %>
+  <%= @exposure.impact_subscore %>
 </p>
 
 <p>
   <strong>Exploitability subscore:</strong>
-  <%= @cfe.exploitability_subscore %>
+  <%= @exposure.exploitability_subscore %>
 </p>
 
 <p>
   <strong>Access vector:</strong>
-  <%= @cfe.access_vector %>
+  <%= @exposure.access_vector %>
 </p>
 
 <p>
   <strong>Access complexity:</strong>
-  <%= @cfe.access_complexity %>
+  <%= @exposure.access_complexity %>
 </p>
 
 <p>
   <strong>Authentication:</strong>
-  <%= @cfe.authentication %>
+  <%= @exposure.authentication %>
 </p>
 
 <p>
   <strong>Impact type:</strong>
-  <%= @cfe.impact_type %>
+  <%= @exposure.impact_type %>
 </p>
 
 <p>
   <strong>Web link:</strong>
-  <%= @cfe.web_link %>
+  <%= @exposure.web_link %>
 </p>
 
 <p>
-  <strong>External source org:</strong>
-  <%= @cfe.external_source_org %>
+  <strong>External source organization:</strong>
+  <%= @exposure.external_source_organization %>
 </p>
 
 <p>
   <strong>External source name:</strong>
-  <%= @cfe.external_source_name %>
+  <%= @exposure.external_source_name %>
 </p>
 
 <p>
   <strong>External source link:</strong>
-  <%= @cfe.external_source_link %>
+  <%= @exposure.external_source_link %>
 </p>
 
-<%= link_to 'Edit', edit_cfe_path(@cfe) %> |
-<%= link_to 'Back', cves_path %>
+<%= link_to 'Edit', edit_exposure_path(@exposure) %> |
+<%= link_to 'Back', exposures_path %>

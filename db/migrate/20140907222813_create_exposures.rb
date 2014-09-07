@@ -1,6 +1,6 @@
-class CreateCves < ActiveRecord::Migration
+class CreateExposures < ActiveRecord::Migration
   def change
-    create_table :cves do |t|
+    create_table :exposures do |t|
       t.string :summary
       t.string :published
       t.integer :cvss_severity
@@ -13,7 +13,7 @@ class CreateCves < ActiveRecord::Migration
       t.string :authentication
       t.string :impact_type
       t.string :web_link
-      t.string :external_source_org
+      t.string :external_source_organization
       t.string :external_source_name
       t.string :external_source_link
 

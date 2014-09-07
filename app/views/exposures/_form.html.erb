@@ -1,10 +1,10 @@
-<%= form_for(@cfe) do |f| %>
-  <% if @cfe.errors.any? %>
+<%= form_for(@exposure) do |f| %>
+  <% if @exposure.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@cfe.errors.count, "error") %> prohibited this cfe from being saved:</h2>
+      <h2><%= pluralize(@exposure.errors.count, "error") %> prohibited this exposure from being saved:</h2>
 
       <ul>
-      <% @cfe.errors.full_messages.each do |message| %>
+      <% @exposure.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -60,8 +60,8 @@
     <%= f.text_field :web_link %>
   </div>
   <div class="field">
-    <%= f.label :external_source_org %><br>
-    <%= f.text_field :external_source_org %>
+    <%= f.label :external_source_organization %><br>
+    <%= f.text_field :external_source_organization %>
   </div>
   <div class="field">
     <%= f.label :external_source_name %><br>
