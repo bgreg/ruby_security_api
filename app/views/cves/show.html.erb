@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Summary:</strong>
+  <%= @cfe.summary %>
+</p>
+
+<p>
+  <strong>Published:</strong>
+  <%= @cfe.published %>
+</p>
+
+<p>
+  <strong>Cvss severity:</strong>
+  <%= @cfe.cvss_severity %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @cfe.title %>
+</p>
+
+<p>
+  <strong>Cvss v2 base scroe:</strong>
+  <%= @cfe.cvss_v2_base_scroe %>
+</p>
+
+<p>
+  <strong>Impact subscore:</strong>
+  <%= @cfe.impact_subscore %>
+</p>
+
+<p>
+  <strong>Exploitability subscore:</strong>
+  <%= @cfe.exploitability_subscore %>
+</p>
+
+<p>
+  <strong>Access vector:</strong>
+  <%= @cfe.access_vector %>
+</p>
+
+<p>
+  <strong>Access complexity:</strong>
+  <%= @cfe.access_complexity %>
+</p>
+
+<p>
+  <strong>Authentication:</strong>
+  <%= @cfe.authentication %>
+</p>
+
+<p>
+  <strong>Impact type:</strong>
+  <%= @cfe.impact_type %>
+</p>
+
+<p>
+  <strong>Web link:</strong>
+  <%= @cfe.web_link %>
+</p>
+
+<p>
+  <strong>External source org:</strong>
+  <%= @cfe.external_source_org %>
+</p>
+
+<p>
+  <strong>External source name:</strong>
+  <%= @cfe.external_source_name %>
+</p>
+
+<p>
+  <strong>External source link:</strong>
+  <%= @cfe.external_source_link %>
+</p>
+
+<%= link_to 'Edit', edit_cfe_path(@cfe) %> |
+<%= link_to 'Back', cves_path %>
