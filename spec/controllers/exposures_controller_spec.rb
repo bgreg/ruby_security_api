@@ -24,11 +24,39 @@ RSpec.describe ExposuresController, :type => :controller do
   # Exposure. As you add validations to Exposure, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {summary: "MyString",
+    published: "MyString",
+    cvss_severity: 1,
+    title: "MyString",
+    cvss_v2_base_score: 1,
+    impact_subscore: 1,
+    exploitability_subscore: 1,
+    access_vector: "MyString",
+    access_complexity: "MyString",
+    authentication: "MyString",
+    impact_type: "MyString",
+    web_link: "MyString",
+    external_source_organization: "MyString",
+    external_source_name: "MyString",
+    external_source_link: "MyString"}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {summary: 1,
+    published: "MyString",
+    cvss_severity: 1,
+    title: "MyString",
+    cvss_v2_base_score: 1,
+    impact_subscore: 1,
+    exploitability_subscore: 1,
+    access_vector: "MyString",
+    access_complexity: "MyString",
+    authentication: "MyString",
+    impact_type: "MyString",
+    web_link: "MyString",
+    external_source_organization: "MyString",
+    external_source_name: "MyString",
+    external_source_link: "MyString"}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +131,27 @@ RSpec.describe ExposuresController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {summary: "UpdatedString",
+         published: "UpdatedString",
+         cvss_severity: 1,
+         title: "UpdatedString",
+         cvss_v2_base_score: 1,
+         impact_subscore: 1,
+         exploitability_subscore: 1,
+         access_vector: "UpdatedString",
+         access_complexity: "UpdatedString",
+         authentication: "UpdatedString",
+         impact_type: "UpdatedString",
+         web_link: "UpdatedString",
+         external_source_organization: "UpdatedString",
+         external_source_name: "UpdatedString",
+         external_source_link: "UpdatedString"}
       }
 
       it "updates the requested exposure" do
         exposure = Exposure.create! valid_attributes
         put :update, {:id => exposure.to_param, :exposure => new_attributes}, valid_session
         exposure.reload
-        skip("Add assertions for updated state")
       end
 
       it "assigns the requested exposure as @exposure" do
