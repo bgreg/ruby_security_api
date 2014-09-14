@@ -1,6 +1,6 @@
 class Exposure < ActiveRecord::Base
 
-  validates :summary,                      presence: true, length: {minimum: 2, maximum: 500}
+  validates :summary,                      presence: true, length: {minimum: 2}
   validates :published,                    presence: true, length: {minimum: 2, maximum: 500}
   validates :title,                        presence: true, length: {minimum: 2, maximum: 500}
   validates :access_vector,                presence: true, length: {minimum: 2, maximum: 500}

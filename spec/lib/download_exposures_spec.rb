@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe ':download_exposures' do
   let(:remote_uri) do
     "http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-modified.xml"
@@ -11,7 +9,7 @@ describe ':download_exposures' do
      'User-Agent'=>'Ruby'}
   end
   let!(:nvd_data) do
-   File.open("spec/support/nvdcve-2.0-modified.xml") { |f| f.read }
+    File.open("spec/support/nvdcve-2.0-modified.xml") { |f| f.read }
   end
 
   before do
@@ -29,10 +27,12 @@ describe ':download_exposures' do
     }.not_to raise_exception
   end
 
-  it "can create 1 exposure per xml entry" do
+  #
+  # 1 out of 10 times this fails, wtf
+  #
+  it "can create 1 exposure per XML entry" do
     expect{
       Rake::Task['db:download_recent_exposures'].invoke
     }.to change{Exposure.count}.by(554)
   end
-
 end
