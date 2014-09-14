@@ -12,9 +12,7 @@ class Exposure < ActiveRecord::Base
   validates :external_source_name,         presence: true, length: {minimum: 2, maximum: 500}
   validates :external_source_organization, presence: true, length: {minimum: 2, maximum: 500}
 
+  validates_numericality_of(:cvss_severity, :cvss_v2_base_score,
+                            :impact_subscore, :exploitability_subscore)
 
-  validates_numericality_of(:cvss_severity,
-                            :cvss_v2_base_score,
-                            :impact_subscore,
-                            :exploitability_subscore)
 end
