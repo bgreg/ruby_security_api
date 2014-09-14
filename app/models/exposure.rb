@@ -7,7 +7,6 @@ class Exposure < ActiveRecord::Base
   validates :access_complexity,            presence: true, length: {minimum: 2, maximum: 500}
   validates :authentication,               presence: true, length: {minimum: 2, maximum: 500}
   validates :impact_type,                  presence: true, length: {minimum: 2, maximum: 500}
-  validates :web_link,                     presence: true, length: {minimum: 2, maximum: 500}
   validates :external_source_link,         presence: true, length: {minimum: 2, maximum: 500}
   validates :external_source_name,         presence: true, length: {minimum: 2, maximum: 500}
   validates :external_source_organization, presence: true, length: {minimum: 2, maximum: 500}

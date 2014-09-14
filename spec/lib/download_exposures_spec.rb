@@ -10,7 +10,7 @@ describe ':download_exposures' do
      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
      'User-Agent'=>'Ruby'}
   end
-  let(:nvd_data) do
+  let!(:nvd_data) do
    File.open("spec/support/nvdcve-2.0-modified.xml") { |f| f.read }
   end
 
@@ -32,7 +32,7 @@ describe ':download_exposures' do
   it "can create 1 exposure per xml entry" do
     expect{
       Rake::Task['db:download_recent_exposures'].invoke
-    }.to change{Exposure.count}.by(194)
+    }.to change{Exposure.count}.by(554)
   end
 
 end

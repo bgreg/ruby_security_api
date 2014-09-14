@@ -10,11 +10,12 @@ namespace :db do
   desc "Download Newest exposure data"
   task download_recent_exposures: :environment do
     include ExposureLoader
-    doc = Nokogiri::XML(open(recent_exposure_uri))
+    # doc = Nokogiri::XML(open(recent_exposure_uri))
 
+    file = File.open("spec/support/nvdcve-2.0-modified.xml") { |f| f.read }
+    doc = Nokogiri::XML(file)
     doc.css("entry").each do |e|
-      Exposure.create{
-        {summary: "MyString",
+      Exposure.create!({ summary: "MyString",
         published: "MyString",
         cvss_severity: 1,
         title: "MyString",
@@ -27,7 +28,8 @@ namespace :db do
         impact_type: "MyString",
         external_source_organization: "MyString",
         external_source_name: "MyString",
-        external_source_link: "MyString"} }
+        external_source_link: "MyString" })
     end
+      puts Exposure.count
   end
 end
