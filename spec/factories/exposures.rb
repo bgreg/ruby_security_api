@@ -13,7 +13,6 @@ FactoryGirl.define do
     access_complexity "MyString"
     authentication "MyString"
     impact_type "MyString"
-    web_link "MyString"
     external_source_organization "MyString"
     external_source_name "MyString"
     external_source_link "MyString"
