@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :exposure do
     summary "MyString"
     published "MyString"
-    cvss_severity 1
+    cvss_severity "MyString, not sting"
     title "MyString"
     cvss_v2_base_score 1
     impact_subscore 1

@@ -1,9 +1,10 @@
 class CreateExposures < ActiveRecord::Migration
   def change
     create_table :exposures do |t|
+      t.string :cve_id
       t.text :summary
       t.text :published
-      t.integer :cvss_severity
+      t.string :cvss_severity
       t.text :title
       t.integer :cvss_v2_base_score
       t.integer :impact_subscore

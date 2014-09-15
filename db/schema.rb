@@ -33,9 +33,10 @@ ActiveRecord::Schema.define(version: 20140907225128) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "exposures", force: true do |t|
+    t.string   "cve_id"
     t.text     "summary"
     t.text     "published"
-    t.integer  "cvss_severity"
+    t.string   "cvss_severity"
     t.text     "title"
     t.integer  "cvss_v2_base_score"
     t.integer  "impact_subscore"

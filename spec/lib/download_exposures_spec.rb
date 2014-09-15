@@ -8,6 +8,7 @@ describe ':download_exposures' do
      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
      'User-Agent'=>'Ruby'}
   end
+
   let!(:nvd_data) do
     File.open("spec/support/nvdcve-2.0-modified.xml") { |f| f.read }
   end
