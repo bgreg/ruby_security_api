@@ -12,9 +12,5 @@ FactoryGirl.define do
     access_vector "MyString"
     access_complexity "MyString"
     authentication "MyString"
-    impact_type "MyString"
-    external_source_organization "MyString"
-    external_source_name "MyString"
-    external_source_link "MyString"
   end
 end

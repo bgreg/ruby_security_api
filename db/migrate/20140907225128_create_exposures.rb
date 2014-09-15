@@ -12,10 +12,9 @@ class CreateExposures < ActiveRecord::Migration
       t.text :access_vector
       t.text :access_complexity
       t.text :authentication
-      t.text :impact_type
-      t.text :external_source_organization
-      t.text :external_source_name
-      t.text :external_source_link
+      t.text :confidentiality_impact
+      t.text :integrity_impact
+      t.text :availablility_impact
 
       t.timestamps
     end

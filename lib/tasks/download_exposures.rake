@@ -34,21 +34,19 @@ namespace :db do
         cvss_severity:                severity(e.xpath("vuln:cvss/cvss:base_metrics/cvss:score").text),
         title:                        e.xpath("vuln:summary").text[0..100] + " ...",
         cvss_v2_base_score:           e.xpath("vuln:cvss/cvss:base_metrics/cvss:score").text.to_i,
-        impact_subscore:              1,
-        exploitability_subscore:      1,
-        access_vector:                e.xpath("vuln:cvss/cvss:base_metrics/cvss:access-vector").text,
-        access_complexity:            "MyString",
-        authentication:               "MyString",
-        impact_type:                  "MyString",
-        external_source_organization: "MyString",
-        external_source_name:         "MyString",
-        external_source_link:         "MyString"})
+        impact_subscore:              1                                                                       || 0.00,
+        exploitability_subscore:      1                                                                       || 0.00,
+        access_vector:                e.xpath("vuln:cvss/cvss:base_metrics/cvss:access-vector").text.presence          || "undefined",
+        access_complexity:            e.xpath("vuln:cvss/cvss:base_metrics/cvss:access-complexity").text.presence      || "undefined",
+        authentication:               e.xpath("vuln:cvss/cvss:base_metrics/cvss:access-authentication").text.presence  || "undefined",
+        integrity_impact:             e.xpath("vuln:cvss/cvss:base_metrics/cvss:integrity-impact").text.presence       || "undefined",
+        availablility_impact:         e.xpath("vuln:cvss/cvss:base_metrics/cvss:availablility-impact").text.presence   || "undefined",
+        confidentiality_impact:       e.xpath("vuln:cvss/cvss:base_metrics/cvss:confidentiality-impact").text.presence || "undefined",
+        external_source_organization: "MyString" || "undefined",
+        external_source_name:         "MyString" || "undefined",
+        external_source_link:         "MyString" || "undefined"})
 
-     unless exposure.save
-      puts "#{exposure.errors.messages}"
-      exposure.errors.messages.each{ |k,v| exposure[k] = "undefined" }
-      exposure.save
-     end
+      puts "#{exposure.errors.messages}" unless exposure.save
     end
     puts "#{Exposure.last.to_yaml}"
   end
