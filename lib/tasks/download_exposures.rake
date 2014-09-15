@@ -44,7 +44,11 @@ namespace :db do
         external_source_name:         "MyString",
         external_source_link:         "MyString"})
 
-      puts "#{exposure.errors.messages}" unless exposure.save
+     unless exposure.save
+      puts "#{exposure.errors.messages}"
+      exposure.errors.messages.each{ |k,v| exposure[k] = "undefined" }
+      exposure.save
+     end
     end
     puts "#{Exposure.last.to_yaml}"
   end
