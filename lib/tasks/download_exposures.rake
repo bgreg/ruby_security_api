@@ -42,9 +42,20 @@ namespace :db do
         integrity_impact:             e.xpath("vuln:cvss/cvss:base_metrics/cvss:integrity-impact").text.presence       || "undefined",
         availablility_impact:         e.xpath("vuln:cvss/cvss:base_metrics/cvss:availablility-impact").text.presence   || "undefined",
         confidentiality_impact:       e.xpath("vuln:cvss/cvss:base_metrics/cvss:confidentiality-impact").text.presence || "undefined",
-        external_source_organization: "MyString" || "undefined",
-        external_source_name:         "MyString" || "undefined",
-        external_source_link:         "MyString" || "undefined"})
+      })
+      
+      e.xpath("vuln:references").each do |r|
+        ref = Reference.new({
+          source: r.xpath("vuln:source").text.presence || "undefined",
+          url:    r.xpath("vuln:reference").text.presence || "undefined"
+        })
+        puts "#{ref.errors.messages}" unless exposure.save
+        exposure.references << ref
+      end
+
+      #
+      # build references associations 
+      #
 
       puts "#{exposure.errors.messages}" unless exposure.save
     end
