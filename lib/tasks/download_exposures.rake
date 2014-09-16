@@ -1,8 +1,52 @@
 require 'open-uri'
 
 module ExposureLoader
+
+  def download_recent
+    doc = Nokogiri::XML(open(recent_exposure_uri))
+    doc.css("entry").each  do |e|
+      exposure            = parse_xml_into_exposure(e)
+      refs                = parse_xml_into_references(e)
+      exposure.references << refs
+
+      puts "#{exposure.errors.messages}" unless exposure.save
+    end
+  end
+
+
   def recent_exposure_uri
     "http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-modified.xml"
+  end
+
+  private
+
+  def parse_xml_into_exposure(e)
+    exposure = Exposure.new({
+      cve_id:                 cve_id(e),
+      summary:                summary(e),
+      published:              published(e),
+      cvss_severity:          cvss_severity(e),
+      title:                  title(e),
+      cvss_v2_base_score:     cvss_v2_base_score(e),
+      access_vector:          access_vector(e),
+      access_complexity:      access_complexity(e),
+      authentication:         authentication(e),
+      integrity_impact:       integrity_impact(e),
+      availablility_impact:   availablility_impact(e),
+      confidentiality_impact: confidentiality_impact(e),
+    })
+    exposure
+  end
+  
+  def parse_xml_into_references(e)
+    refs =[]
+    e.xpath("vuln:references").each do |r|
+      ref = Reference.new({
+        source: r.xpath("vuln:source").text.presence || "undefined",
+        url:    r.xpath("vuln:reference").text.presence || "undefined" })
+      refs << ref
+    end
+    refs
   end
 
   def severity(number)
@@ -17,48 +61,72 @@ module ExposureLoader
       "#{number} High"
     end
   end
+
+  def summary(e)
+    e.xpath("vuln:summary").text
+  end
+
+  def cve_id(e)
+    e.xpath("vuln:cve-id").text
+  end
+
+  def published(e)
+    e.xpath("vuln:published-datetime").text
+  end
+
+  def cvss_severity(e)
+    severity(e.xpath("vuln:cvss/cvss:base_metrics/cvss:score").text)
+  end
+
+  def title(e)
+    e.xpath("vuln:summary").text[0..100] + " ..."
+  end
+
+  def cvss_v2_base_score(e)
+    e.xpath("vuln:cvss/cvss:base_metrics/cvss:score").text.to_i
+  end
+
+  def access_vector(e)
+    e.xpath("vuln:cvss/cvss:base_metrics/cvss:access-vector")
+      .text
+      .presence || "undefined"
+  end
+
+  def access_complexity(e)
+    e.xpath("vuln:cvss/cvss:base_metrics/cvss:access-complexity")
+      .text
+      .presence || "undefined"
+  end
+
+  def authentication(e)
+    e.xpath("vuln:cvss/cvss:base_metrics/cvss:access-authentication")
+      .text
+      .presence || "undefined"
+  end
+
+  def integrity_impact(e)
+    e.xpath("vuln:cvss/cvss:base_metrics/cvss:integrity-impact")
+      .text
+      .presence || "undefined"
+  end
+
+  def availablility_impact(e)
+    e.xpath("vuln:cvss/cvss:base_metrics/cvss:availablility-impact")
+      .text
+      .presence || "undefined"
+  end
+
+  def confidentiality_impact(e)
+    e.xpath("vuln:cvss/cvss:base_metrics/cvss:confidentiality-impact")
+      .text
+      .presence || "undefined"
+  end
 end
 
 namespace :db do
   desc "Download Newest exposure data"
   task download_recent_exposures: :environment do
     include ExposureLoader
-    doc = Nokogiri::XML(open(recent_exposure_uri))
-
-    puts doc.css("entry").count
-    doc.css("entry").each_with_index do |e,index|
-      exposure = Exposure.new({
-        cve_id:                       e.xpath("vuln:cve-id").text,
-        summary:                      e.xpath("vuln:summary").text,
-        published:                    e.xpath("vuln:published-datetime").text,
-        cvss_severity:                severity(e.xpath("vuln:cvss/cvss:base_metrics/cvss:score").text),
-        title:                        e.xpath("vuln:summary").text[0..100] + " ...",
-        cvss_v2_base_score:           e.xpath("vuln:cvss/cvss:base_metrics/cvss:score").text.to_i,
-        impact_subscore:              1                                                                       || 0.00,
-        exploitability_subscore:      1                                                                       || 0.00,
-        access_vector:                e.xpath("vuln:cvss/cvss:base_metrics/cvss:access-vector").text.presence          || "undefined",
-        access_complexity:            e.xpath("vuln:cvss/cvss:base_metrics/cvss:access-complexity").text.presence      || "undefined",
-        authentication:               e.xpath("vuln:cvss/cvss:base_metrics/cvss:access-authentication").text.presence  || "undefined",
-        integrity_impact:             e.xpath("vuln:cvss/cvss:base_metrics/cvss:integrity-impact").text.presence       || "undefined",
-        availablility_impact:         e.xpath("vuln:cvss/cvss:base_metrics/cvss:availablility-impact").text.presence   || "undefined",
-        confidentiality_impact:       e.xpath("vuln:cvss/cvss:base_metrics/cvss:confidentiality-impact").text.presence || "undefined",
-      })
-      
-      e.xpath("vuln:references").each do |r|
-        ref = Reference.new({
-          source: r.xpath("vuln:source").text.presence || "undefined",
-          url:    r.xpath("vuln:reference").text.presence || "undefined"
-        })
-        puts "#{ref.errors.messages}" unless exposure.save
-        exposure.references << ref
-      end
-
-      #
-      # build references associations 
-      #
-
-      puts "#{exposure.errors.messages}" unless exposure.save
-    end
-    puts "#{Exposure.last.to_yaml}"
+    download_recent
   end
 end

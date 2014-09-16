@@ -11,5 +11,5 @@ class Exposure < ActiveRecord::Base
   validates :confidentiality_impact,       presence: true
   validates :integrity_impact,             presence: true
   validates :availablility_impact,         presence: true
-  validates_numericality_of(:cvss_v2_base_score, :impact_subscore, :exploitability_subscore)
+  validates_numericality_of(:cvss_v2_base_score)
 end
