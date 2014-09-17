@@ -3,22 +3,26 @@ require 'open-uri'
 module ExposureLoader
 
   def download_recent
-    doc = Nokogiri::XML(open(recent_exposure_uri))
+    download("http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-modified.xml")
+  end
+
+
+  def download_all
+    download("https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2014.xml")
+  end
+
+  private
+
+  def download(file)
+    doc = Nokogiri::XML(open(file))
     doc.css("entry").each  do |e|
       exposure            = parse_xml_into_exposure(e)
       refs                = parse_xml_into_references(e)
       exposure.references << refs
 
-      puts "#{exposure.errors.messages}" unless exposure.save
+      puts "Cannot save #{exposure.cve_id} because: #{exposure.errors.messages}" unless exposure.save
     end
   end
-
-
-  def recent_exposure_uri
-    "http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-modified.xml"
-  end
-
-  private
 
   def parse_xml_into_exposure(e)
     exposure = Exposure.new({
@@ -128,5 +132,14 @@ namespace :db do
   task download_recent_exposures: :environment do
     include ExposureLoader
     download_recent
+  end
+end
+
+
+namespace :db do
+  desc "Download all exposure data"
+  task download_all_exposures: :environment do
+    include ExposureLoader
+    download_all
   end
 end
