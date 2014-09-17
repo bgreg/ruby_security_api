@@ -14,14 +14,25 @@ module ExposureLoader
   private
 
   def download(file)
+    total_new_exposures = 0
     doc = Nokogiri::XML(open(file))
     doc.css("entry").each  do |e|
       exposure            = parse_xml_into_exposure(e)
       refs                = parse_xml_into_references(e)
       exposure.references << refs
 
-      puts "Cannot save #{exposure.cve_id} because: #{exposure.errors.messages}" unless exposure.save
+      if exposure.save
+        print "."
+        total_new_exposures  += 1
+      else
+        if exposure.errors.messages.has_key? :cve_id
+          print "D"
+        else
+          puts "Cannot save #{exposure.cve_id} because: #{exposure.errors.messages}" 
+        end
+      end
     end
+    puts "\n\nTotal new exposures downloaded from #{file}: #{total_new_exposures}"
   end
 
   def parse_xml_into_exposure(e)
@@ -41,7 +52,7 @@ module ExposureLoader
     })
     exposure
   end
-  
+
   def parse_xml_into_references(e)
     refs =[]
     e.xpath("vuln:references").each do |r|
@@ -129,7 +140,7 @@ end
 
 namespace :db do
   desc "Download Newest exposure data"
-  task download_recent_exposures: :environment do
+  task download_recent: :environment do
     include ExposureLoader
     download_recent
   end
@@ -138,8 +149,9 @@ end
 
 namespace :db do
   desc "Download all exposure data"
-  task download_all_exposures: :environment do
+  task download_all: :environment do
     include ExposureLoader
     download_all
+    download_recent
   end
 end
