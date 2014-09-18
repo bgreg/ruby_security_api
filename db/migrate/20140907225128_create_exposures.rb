@@ -13,8 +13,11 @@ class CreateExposures < ActiveRecord::Migration
       t.text :confidentiality_impact
       t.text :integrity_impact
       t.text :availablility_impact
+      t.boolean :ruby
 
       t.timestamps
     end
+    add_index(:exposures, :ruby)
+    add_index(:exposures, :cve_id)
   end
 end

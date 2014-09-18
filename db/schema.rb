@@ -45,9 +45,13 @@ ActiveRecord::Schema.define(version: 20140915010131) do
     t.text     "confidentiality_impact"
     t.text     "integrity_impact"
     t.text     "availablility_impact"
+    t.boolean  "ruby"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "exposures", ["cve_id"], name: "index_exposures_on_cve_id", using: :btree
+  add_index "exposures", ["ruby"], name: "index_exposures_on_ruby", using: :btree
 
   create_table "references", force: true do |t|
     t.text     "source"
