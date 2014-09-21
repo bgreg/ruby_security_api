@@ -25,6 +25,7 @@ gem "unicorn"
 gem "nokogiri"
 gem 'active_model_serializers'
 gem 'ruby-progressbar'
+gem 'adamantium'
 
 group :development do
   gem "spring"

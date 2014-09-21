@@ -3,12 +3,9 @@ require 'open-uri'
 module ExposureLoader
 
   def download_recent
-    pb = ProgressBar.create
     old_total = Exposure.count
-    download("http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-modified.xml", pb)
+    download("http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-modified.xml")
     puts "\n\nNew Exposures added: #{Exposure.count - old_total}"
-    pb.finish
-    pb.stop
     report_download_statistics
   end
 
@@ -23,7 +20,7 @@ module ExposureLoader
 
   def download(file)
     short_name = file.rpartition("/").last
-    pb  = ProgressBar.create(smoothing: 0.6, title: short_name , total: 1)
+    pb  = ProgressBar.create(smoothing: 0.6, title: "Parsing " + short_name , total: 1)
     doc = Nokogiri::XML(open(file))
     doc.css('entry').each  do |e|
       exposure            = parse_xml_into_exposure(e)
