@@ -2,40 +2,32 @@ require 'open-uri'
 
 module ExposureLoader
 
-  def download_recent
-    old_total = Exposure.count
-    download("http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-modified.xml")
-    puts "\n\nNew Exposures added: #{Exposure.count - old_total}"
-    report_download_statistics
-  end
+  def download(file)
+    short_name    = file.rpartition("/").last
+    progress_bar  = ProgressBar.create(
+                      smoothing: 0.6,
+                      title: "Downloading & Parsing " + short_name,
+                      total: 1)
 
-  def download_all
-    download("https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2014.xml")
-    download("http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-modified.xml")
-    puts "\n\nTotal exposures: #{Exposure.count}"
+    Nokogiri::XML(open(file)).css('entry').each  do |e|
+      exposure            = parse_xml_into_exposure(e)
+      refs                = parse_xml_into_references(e)
+      exposure.references << refs
+      if exposure.save
+        progress_bar.total += 1
+        progress_bar.increment
+      end
+    end
+
+    progress_bar.finish
+    progress_bar.stop
     report_download_statistics
   end
 
   private
 
-  def download(file)
-    short_name = file.rpartition("/").last
-    pb  = ProgressBar.create(smoothing: 0.6, title: "Parsing " + short_name , total: 1)
-    doc = Nokogiri::XML(open(file))
-    doc.css('entry').each  do |e|
-      exposure            = parse_xml_into_exposure(e)
-      refs                = parse_xml_into_references(e)
-      exposure.references << refs
-      if exposure.save
-        pb.total += 1
-        pb.increment
-      end
-    end
-    pb.finish
-    pb.stop
-  end
-
   def report_download_statistics
+    puts "\n\nTotal exposures: #{Exposure.count}"
     puts "Ruby records: #{Exposure.where(ruby: true).length}"
   end
 
