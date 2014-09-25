@@ -24,39 +24,25 @@ RSpec.describe ExposuresController, :type => :controller do
   # Exposure. As you add validations to Exposure, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {summary: "MyString",
-    published: "MyString",
-    cvss_severity: 1,
-    title: "MyString",
-    cvss_v2_base_score: 1,
-    impact_subscore: 1,
-    exploitability_subscore: 1,
-    access_vector: "MyString",
-    access_complexity: "MyString",
-    authentication: "MyString",
-    impact_type: "MyString",
-    web_link: "MyString",
-    external_source_organization: "MyString",
-    external_source_name: "MyString",
-    external_source_link: "MyString"}
+    {summary:            "MyString",
+     published:          "MyString",
+     cvss_severity:      1,
+     title:              "MyString",
+     cvss_v2_base_score: 1,
+     access_vector:      "MyString",
+     access_complexity:  "MyString",
+     authentication:     "MyString", }
   }
 
   let(:invalid_attributes) {
-    {summary: 1,
-    published: "MyString",
-    cvss_severity: 1,
-    title: "MyString",
-    cvss_v2_base_score: 1,
-    impact_subscore: 1,
-    exploitability_subscore: 1,
-    access_vector: "MyString",
-    access_complexity: "MyString",
-    authentication: "MyString",
-    impact_type: "MyString",
-    web_link: "MyString",
-    external_source_organization: "MyString",
-    external_source_name: "MyString",
-    external_source_link: "MyString"}
+    {summary:             1,
+     published:           "MyString",
+     cvss_severity:       1,
+     title:               "MyString",
+     cvss_v2_base_score:  1,
+     access_vector:       "MyString",
+     access_complexity:   "MyString",
+     authentication:      "MyString", }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -66,7 +52,7 @@ RSpec.describe ExposuresController, :type => :controller do
 
   describe "GET index" do
     it "assigns all exposures as @exposures" do
-      exposure = Exposure.create! valid_attributes
+      exposure = Exposure.create!(valid_attributes)
       get :index, {}, valid_session
       expect(assigns(:exposures)).to eq([exposure])
     end
@@ -89,8 +75,10 @@ RSpec.describe ExposuresController, :type => :controller do
 
   describe "GET edit" do
     it "assigns the requested exposure as @exposure" do
-      exposure = Exposure.create! valid_attributes
-      get :edit, {:id => exposure.to_param}, valid_session
+      exposure = Exposure.create!(valid_attributes)
+      get :edit, {
+        id: exposure.to_param,
+      }, valid_session
       expect(assigns(:exposure)).to eq(exposure)
     end
   end
@@ -99,7 +87,7 @@ RSpec.describe ExposuresController, :type => :controller do
     describe "with valid params" do
       it "creates a new Exposure" do
         expect {
-          post :create, {:exposure => valid_attributes}, valid_session
+          post :create, {exposure: valid_attributes}, valid_session
         }.to change(Exposure, :count).by(1)
       end
 
@@ -136,16 +124,11 @@ RSpec.describe ExposuresController, :type => :controller do
          cvss_severity: 1,
          title: "UpdatedString",
          cvss_v2_base_score: 1,
-         impact_subscore: 1,
-         exploitability_subscore: 1,
          access_vector: "UpdatedString",
          access_complexity: "UpdatedString",
          authentication: "UpdatedString",
          impact_type: "UpdatedString",
-         web_link: "UpdatedString",
-         external_source_organization: "UpdatedString",
-         external_source_name: "UpdatedString",
-         external_source_link: "UpdatedString"}
+         web_link: "UpdatedString", }
       }
 
       it "updates the requested exposure" do

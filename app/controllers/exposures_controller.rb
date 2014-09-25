@@ -64,7 +64,6 @@ class ExposuresController < ApplicationController
                                        :access_complexity,
                                        :authentication,
                                        :impact_type,
-                                       :web_link,
                                        :external_source_organization,
                                        :external_source_name,
                                        :external_source_link)
