@@ -1,5 +1,4 @@
 class Exposure < ActiveRecord::Base
-
   has_many :references
 
   validates :summary,                      presence: true, length: {minimum: 2}

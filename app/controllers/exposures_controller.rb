@@ -1,49 +1,52 @@
 class ExposuresController < ApplicationController
-  before_action :set_exposure, only: [:show, :edit, :update, :destroy]
+  before_action :set_exposure, only: [:show ]
 
   # GET /exposures
   def index
     @exposures = Exposure.all
+    render json: @exposures
   end
 
   # GET /exposures/1
   def show
+    render json: @exposure
   end
 
-  # GET /exposures/new
-  def new
-    @exposure = Exposure.new
-  end
+  # # GET /exposures/new
+  # def new
+  #   @exposure = Exposure.new
+  #   render json: @exposure
+  # end
 
   # GET /exposures/1/edit
-  def edit
-  end
+  # def edit
+  # end
 
-  # POST /exposures
-  def create
-    @exposure = Exposure.new(exposure_params)
-
-    if @exposure.save
-      redirect_to @exposure, notice: 'Exposure was successfully created.'
-    else
-      render :new
-    end
-  end
-
-  # PATCH/PUT /exposures/1
-  def update
-    if @exposure.update(exposure_params)
-      redirect_to @exposure, notice: 'Exposure was successfully updated.'
-    else
-      render :edit
-    end
-  end
-
-  # DELETE /exposures/1
-  def destroy
-    @exposure.destroy
-    redirect_to exposures_url, notice: 'Exposure was successfully destroyed.'
-  end
+  # # POST /exposures
+  # def create
+  #   @exposure = Exposure.new(exposure_params)
+  #
+  #   if @exposure.save
+  #     redirect_to @exposure, notice: 'Exposure was successfully created.'
+  #   else
+  #     render :new
+  #   end
+  # end
+  #
+  # # PATCH/PUT /exposures/1
+  # def update
+  #   if @exposure.update(exposure_params)
+  #     redirect_to @exposure, notice: 'Exposure was successfully updated.'
+  #   else
+  #     render :edit
+  #   end
+  # end
+  #
+  # # DELETE /exposures/1
+  # def destroy
+  #   @exposure.destroy
+  #   redirect_to exposures_url, notice: 'Exposure was successfully destroyed.'
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

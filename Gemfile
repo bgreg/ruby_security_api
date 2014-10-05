@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.1.2"
+ruby "2.1.3"
 
 gem "airbrake"
 gem "bourbon", "~> 3.2.1"
@@ -37,6 +37,7 @@ group :development, :test do
   gem "dotenv-rails"
   gem "factory_girl_rails"
   gem "pry-rails"
+  gem 'pry-highlight'
   gem "rspec-rails", "~> 3.0.0"
 end
 
