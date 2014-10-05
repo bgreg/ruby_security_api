@@ -3,7 +3,7 @@ class ExposuresController < ApplicationController
 
   # GET /exposures
   def index
-    @exposures = Exposure.all
+    @exposures = Exposure.where(ruby: true)
     render json: @exposures
   end
 

@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  resources :exposures
+  resources :exposures, only: [:index, :show]
 end
