@@ -1,10 +1,9 @@
 class ExposuresController < ApplicationController
-  before_action :set_exposure, only: [:show ]
+  before_action :set_exposure, only: [:show]
 
   # GET /exposures
   def index
-    @exposures = Exposure.where(ruby: true)
-    render json: @exposures
+    render json: Exposure.ruby_true
   end
 
   # GET /exposures/1
@@ -12,41 +11,15 @@ class ExposuresController < ApplicationController
     render json: @exposure
   end
 
-  # # GET /exposures/new
-  # def new
-  #   @exposure = Exposure.new
-  #   render json: @exposure
-  # end
+  # GET /exposures/recent_count
+  def recent_count
+    render json: Exposure.recent.count
+  end
 
-  # GET /exposures/1/edit
-  # def edit
-  # end
-
-  # # POST /exposures
-  # def create
-  #   @exposure = Exposure.new(exposure_params)
-  #
-  #   if @exposure.save
-  #     redirect_to @exposure, notice: 'Exposure was successfully created.'
-  #   else
-  #     render :new
-  #   end
-  # end
-  #
-  # # PATCH/PUT /exposures/1
-  # def update
-  #   if @exposure.update(exposure_params)
-  #     redirect_to @exposure, notice: 'Exposure was successfully updated.'
-  #   else
-  #     render :edit
-  #   end
-  # end
-  #
-  # # DELETE /exposures/1
-  # def destroy
-  #   @exposure.destroy
-  #   redirect_to exposures_url, notice: 'Exposure was successfully destroyed.'
-  # end
+  # GET /exposure/recent_index
+  def recent_index
+    render json: Exposure.recent
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -56,19 +29,20 @@ class ExposuresController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def exposure_params
-      params.require(:exposure).permit(:summary,
-                                       :published,
-                                       :cvss_severity,
-                                       :title,
-                                       :cvss_v2_base_score,
-                                       :impact_subscore,
-                                       :exploitability_subscore,
-                                       :access_vector,
-                                       :access_complexity,
-                                       :authentication,
-                                       :impact_type,
-                                       :external_source_organization,
-                                       :external_source_name,
-                                       :external_source_link)
+      params.require(:exposure).permit(
+        :summary,
+        :published,
+        :cvss_severity,
+        :title,
+        :cvss_v2_base_score,
+        :impact_subscore,
+        :exploitability_subscore,
+        :access_vector,
+        :access_complexity,
+        :authentication,
+        :impact_type,
+        :external_source_organization,
+        :external_source_name,
+        :external_source_link)
     end
 end
