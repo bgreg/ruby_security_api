@@ -6,6 +6,13 @@ class ExposuresController < ApplicationController
     render json: Exposure.ruby_true
   end
 
+  #GET /exposures/index_short
+  def index_short
+    render json: Exposure.ruby_true.map{|e|
+      { name: e[:title], id: e[:id] }
+    }
+  end
+
   # GET /exposures/1
   def show
     render json: @exposure
@@ -18,7 +25,7 @@ class ExposuresController < ApplicationController
 
   # GET /exposure/recent_index
   def recent_index
-    render json: Exposure.recent
+    render json: Exposure.recent.collect{|e| {name: e[:title], id: e[:id]} }
   end
 
   private

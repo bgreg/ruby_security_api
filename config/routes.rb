@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     collection do
       get :recent_index
       get :recent_count
+      get :index_short
     end
   end
 end
