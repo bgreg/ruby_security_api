@@ -25,6 +25,6 @@ class Exposure < ActiveRecord::Base
   #----------------------------------------------------------------------------
   scope :ruby_true, lambda { where(ruby: true) }
   scope :recent,    lambda {
-    where(ruby: true, published: (Date.today.midnight .. 30.days.ago)) }
+    where(ruby: true, published: (30.days.ago .. Date.today.midnight)) }
 
 end

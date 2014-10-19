@@ -20,7 +20,7 @@ class ExposuresController < ApplicationController
 
   # GET /exposures/recent_count
   def recent_count
-    render json: Exposure.recent.count
+    render json: {count: Exposure.recent.count.to_s}
   end
 
   # GET /exposure/recent_index
