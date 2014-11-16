@@ -1,5 +1,4 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :exposure do
     summary "MyString"
@@ -10,5 +9,6 @@ FactoryGirl.define do
     access_vector "MyString"
     access_complexity "MyString"
     authentication "MyString"
+    references nil
   end
 end

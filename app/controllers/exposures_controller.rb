@@ -1,15 +1,20 @@
 class ExposuresController < ApplicationController
   before_action :set_exposure, only: [:show]
 
+
   # GET /exposures
   def index
-    render json: Exposure.ruby_true
-  end
-
-  #GET /exposures/index_short
-  def index_short
-    render json: Exposure.ruby_true.map{|e|
-      { name: e[:title], id: e[:id] }
+    render json: {
+      recents: Exposure.ruby_true.recent.map{|e| {
+        name:          e[:title], 
+        id:            e[:id],
+        cve_id:        e[:cve_id],
+        cvss_severity: e[:cvss_severity]} },
+      others:  Exposure.ruby_true.others.map{|e| {
+        name:        e[:title], 
+        id:          e[:id], 
+        cve_id:      e[:cve_id],
+        cvss_severity: e[:cvss_severity] } } 
     }
   end
 

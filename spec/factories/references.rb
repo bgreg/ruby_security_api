@@ -1,6 +1,6 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :reference do
+    source  "Sources String"
+    url     "http://www.google.com"
   end
 end

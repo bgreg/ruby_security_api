@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.1.3"
+ruby "2.1.5"
 
 gem "airbrake"
 gem "bourbon", "~> 3.2.1"
@@ -15,7 +15,7 @@ gem "neat", "~> 1.5.1"
 gem "normalize-rails", "~> 3.0.0"
 gem "pg"
 gem "rack-timeout"
-gem "rails", "4.1.4"
+gem "rails", "4.1.7"
 gem "recipient_interceptor"
 gem "sass-rails", "~> 4.0.3"
 gem "simple_form"

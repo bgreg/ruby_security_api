@@ -51,7 +51,7 @@ module ExposureLoader
   end
 
   def parse_xml_into_references(e)
-    refs =[]
+    refs = []
     e.xpath('vuln:references').each do |r|
       ref = Reference.new({
         source: r.xpath('vuln:source').text.presence || 'undefined',
@@ -100,8 +100,8 @@ module ExposureLoader
 
   def access_vector(e)
     e.xpath('vuln:cvss/cvss:base_metrics/cvss:access-vector')
-      .text
-      .presence || 'undefined'
+     .text
+     .presence || 'undefined'
   end
 
   def access_complexity(e)
