@@ -9,7 +9,7 @@ module ExposureLoader
                       title: "Downloading & Parsing " + short_name,
                       total: 1)
 
-    Nokogiri::XML(open(file)).css('entry').each  do |e|
+    Nokogiri::XML(open(file)).css('entry').each do |e|
       exposure            = parse_xml_into_exposure(e)
       refs                = parse_xml_into_references(e)
       exposure.references << refs

@@ -3,12 +3,14 @@ require 'rails_helper'
 describe ExposuresController do
 
   before do
-    references = [create(:reference)]
-    create(:exposure, reference: references)
+    references = [create(:reference), create(:reference)]
+    create(:exposure, :ruby, published: 3.days.ago, references: references)
+    create(:exposure, :ruby, published: 3.days.ago, references: references)
+    create(:exposure, :ruby, published: 3.days.ago, references: references)
   end
 
   context "#index" do
-    before  { get :index }
+    before { get :index }
     let(:parsed_body) { JSON.parse response.body }
 
     it "respond with 200 ok" do
@@ -17,7 +19,10 @@ describe ExposuresController do
 
     it "response should include root hash keys: others, and recents" do
       expect(parsed_body.keys).to match_array(['others','recents'])
-      binding.pry
+    end
+
+    it "should provide an array of references" do
+      expect(parsed_body.fetch(:recents).fetch(:references)).to include("1")
     end
   end
 
@@ -32,5 +37,4 @@ describe ExposuresController do
   context "#recent_index" do
     subject {response}
   end
-
 end

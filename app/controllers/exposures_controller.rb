@@ -4,18 +4,7 @@ class ExposuresController < ApplicationController
 
   # GET /exposures
   def index
-    render json: {
-      recents: Exposure.ruby_true.recent.map{|e| {
-        name:          e[:title], 
-        id:            e[:id],
-        cve_id:        e[:cve_id],
-        cvss_severity: e[:cvss_severity]} },
-      others:  Exposure.ruby_true.others.map{|e| {
-        name:        e[:title], 
-        id:          e[:id], 
-        cve_id:      e[:cve_id],
-        cvss_severity: e[:cvss_severity] } } 
-    }
+    render json: Exposure.ruby_true
   end
 
   # GET /exposures/1
@@ -25,7 +14,7 @@ class ExposuresController < ApplicationController
 
   # GET /exposures/recent_count
   def recent_count
-    render json: {count: Exposure.recent.count.to_s}
+    render json: { count: Exposure.recent.count.to_s }
   end
 
   # GET /exposure/recent_index

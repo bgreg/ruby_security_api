@@ -33,3 +33,14 @@ programming in style.
 * [Protocol](http://github.com/thoughtbot/guides/blob/master/protocol)
 * [Best Practices](http://github.com/thoughtbot/guides/blob/master/best-practices)
 * [Style](http://github.com/thoughtbot/guides/blob/master/style)
+
+NVD_URL=https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2014.xml rake db:download
+
+
+
+
+
+**TOOD: 
+
+1) refactor exposure name to exposure title
+2) get the reset of the specs passing
