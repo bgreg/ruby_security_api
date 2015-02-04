@@ -4,7 +4,7 @@
 Manual download: NVD_URL=https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2014.xml rake db:download
 
 
-**TOOD: 
+TODO: 
 
 1) refactor exposure name to exposure title
 2) get the reset of the specs passing
